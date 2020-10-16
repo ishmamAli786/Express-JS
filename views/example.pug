@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        style
+            include ./asset/css/custom.css
+            include ./asset/bootstrap/css/bootstrap.min.css
+        Script
+            include ./asset/js/custom.js
+            //include ./asset/bootstrap/js/popper.min.js
+            //include ./asset/bootstrap/js/tooltip.min.js
+            include ./asset/bootstrap/js/bootstrap.min.js
+    body(onload='messege()')
+
+
+    h1.mainHeading#mainHeading(style="background-color:red;color:white") Ishmam Ali Khan
+    p#firstHeading from first program
+    a(href="www.google.com") Google
+    p  
+    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla nobis quo dolores facere ut nam dolorem nemo officia inventore exercitationem.
+    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla nobis quo dolores facere ut nam dolorem nemo officia inventore exercitationem.
+    ////comment in pug
+    h2 Hello #{name}
+    a(href=url) Ishmam
+    ul
+        li(style="list-style-type:none") i am #{skills[0]} developer
+        li(style="list-style-type:none") i am #{skills[1]} developr
+    if(data)
+        h1 Hello #{data.name}   
+        h2 Course Name #{data.tutorail}
+        h3 City #{data.city}
+    else
+        h1(style="color:red")    JavaScript Object is Not Set.
+
+
+    include ./component/header.pug
+    h1 Main Content of Website
+    include ./component/footer.pug
+    .row
+    .col-md-6
+        table.table.table-light.table-striped.table-hover.table-bordered
+            thead.thead-dark
+                tr
+                    th ID
+                    th Name
+                    th City
+            tbody
+                tr
+                    td 01
+                    td ishmam
+                    td Kamalia
+                tr
+                    td 02
+                    td ali
+                    td fsd
+                tr
+                    td 03
+                    td khan
+                    td lahore

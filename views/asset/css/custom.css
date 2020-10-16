@@ -1,0 +1,19 @@
+*{
+    margin:0px;
+    padding:0px;
+    box-sizing:border-box;
+}
+.header{
+    width:100%;
+    background:black;
+    color:white;
+    font-family: 'Courier New', Courier, monospace;
+    height:75px;
+}
+.footer{
+    width:100%;
+    background:green;
+    color:white;
+    font-family: 'Courier New', Courier, monospace;
+    height:75px;
+}

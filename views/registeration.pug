@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Registeration
+    body
+        form(method='get',action='/handleForm',name='registerationForm')
+            table
+                tr
+                    td Name
+                    td
+                        input(type="text",name='username',size='30')
+                tr
+                    td Email
+                    td
+                        input(type="email",name='email',size='30')
+                tr
+                    td Password
+                    td
+                        input(type="password",name='userpass',size='30')
+                tr
+                    td Gender
+                    td
+                        label Male
+                        input(type="radio",name='gender',value='male')
+                        label Female
+                        input(type="radio",name='gender',value='Female')
+                tr
+                    td city
+                    td
+                        select(name='city')
+                            option(value='0') [---choose One---]
+                            option(value='karachi') 
+                            option(value='fsd') 
+                            option(value='lahore') 
+                tr
+                    td(colspan='2',align='right')
+                        input(type="submit" value='send')
+
+
