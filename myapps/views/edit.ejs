@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+<body>
+    <h1><%= title %></h1><br>
+    <form action="/update/" method="post">
+        <input type="hidden" name="id" value="<%= records._id %>">
+        <input type="text" name="uname" placeholder="Enter UserName" value="<%= records.name %>">
+        <input type="text" name="email" placeholder="Enter Email" value="<%= records.email %>">
+        <!-- <input type="text" name="etype"> -->
+        <select name="emptype" placeholder="Enter Employee Type">
+            <option value="hourly" <% if(records.etype=="hourly"){ %> selected <% } %>>Hourly</option>
+            <option value="fixed"  <% if(records.etype=="fixed"){ %> selected <% } %>>Fixed</option>
+        </select>
+        <input type="text" name="hrlyrate" value="<%=records.hourlyrate%>" placeholder="Enter HourlyRate">
+        <input type="text" name="ttlhr" value="<%= records.totalHour%>" placeholder="Enter Total Hour">
+        <input type="submit" name="submit" value="submit">
+    </form>
+</body>
+</html>
