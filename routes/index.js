@@ -4,6 +4,7 @@ var userModel=require('../modules/user');
 var bcyrpt=require('bcryptjs');
 var jwt=require('jsonwebtoken');
 var passCatModel=require('../modules/password-catagory');
+var passModel = require('../modules/add_password');
 var getPassCat = passCatModel.find({});
 
 const { check, validationResult } = require('express-validator');
@@ -55,7 +56,12 @@ function checkUserName(req, res, next) {
   })
 }
 router.get('/', function(req, res, next) {
+  var loginUser = localStorage.getItem('loginUser');
+  if(loginUser){
+    res.redirect('./dashboard')
+  }else{
   res.render('index', { title: 'Password Managment System',msg:'' });
+  }
 });
 router.get('/dashboard/', checkLoginUser, function (req, res, next) {
   var loginUser = localStorage.getItem('loginUser')
@@ -84,8 +90,13 @@ router.post('/',  function (req, res, next) {
   })
 });
 
-router.get('/signup/', checkLoginUser, function(req, res, next) {
+router.get('/signup/',  function(req, res, next) {
+  var loginUser = localStorage.getItem('loginUser');
+  if (loginUser) {
+    res.redirect('./dashboard')
+  } else {
   res.render('signup', { title: 'Password Managment System', msg:'' });
+  }
 });
 router.post('/signup/',   checkEmail, function(req, res, next) {
   var username=req.body.uname;
@@ -194,11 +205,41 @@ router.post('/add-new-category/', checkLoginUser, [check('passwordCategory','Ent
 });
 
 router.get('/add-new-password/', checkLoginUser,   function (req, res, next) {
-  res.render('add-new-password',  { title: 'Password Managment System' });
+  var loginUser = localStorage.getItem('loginUser');
+  getPassCat.exec(function(err,data){
+    if(err){
+      console.log(err)
+    }else{
+      res.render('add-new-password', { title: 'Password Managment System', loginUser: loginUser,records:data,success:'' });
+    }
+  })
 });
 
+
+router.post('/add-new-password/', checkLoginUser, function (req, res, next) {
+  var loginUser = localStorage.getItem('loginUser');
+  var pass_cat = req.body.pass_cat;
+  var project_name = req.body.project_name;
+  var pass_details = req.body.pass_details;
+  var password_details = new passModel({ password_category: pass_cat, password_detail: pass_details, project_name: project_name})
+  
+      password_details.save(function(err,doc){
+        getPassCat.exec(function (err, data) {
+          if (err) {
+            console.log(err)
+          } else {
+          res.render('add-new-password', { title: 'Password Managment System', loginUser: loginUser, records: data,success:"Password Details Inserted Successfully" });
+        }
+      })
+      
+    }
+      )
+});
+
+
 router.get('/view-all-password/', checkLoginUser,  function (req, res, next) {
-  res.render('view-all-password', { title: 'Password Managment System' });
+  var loginUser = localStorage.getItem('loginUser');
+  res.render('view-all-password', { title: 'Password Managment System', loginUser: loginUser});
 });
 
 router.get('/logout/', function (req, res, next) {

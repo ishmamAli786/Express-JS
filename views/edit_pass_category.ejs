@@ -65,11 +65,13 @@
                         <div class="dropdown-divider"></div>
                     </div>
                 </li>
+                <li><a href="/logout/">LogOut</a></li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
+            <p style="color:red"> Loggedin As : <% if(loginUser){%> <%= loginUser %> <% } %></p>
         </div>
     </nav>
 
@@ -98,4 +100,4 @@
     </div>
 </body>
 
-</ht
+</html>
