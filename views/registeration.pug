@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Registeration Form 
+    body
+        form(method='post',action='/handleForm' ,name='registerationForm')
+            table
+                tr
+                    td Name
+                    td
+                        input(type='text' ,name='username',size='30')
+                tr
+                    td Email
+                    td 
+                        input(type='text' ,name='email',size='30')
+                tr
+                    td Password
+                    td
+                        input(type='password' ,name='password',size='30')
+                tr
+                    td Gender
+                    td
+                        label Male
+                        input(type='radio' value='male' name='gender')
+                        label Female
+                        input(type='radio' value='female' name='gender')
+                tr 
+                    td City
+                    td
+                        select(name='city')
+                            option(value='0') [-- Choose One --]
+                            option(value='Karachi') Karachi
+                            option(value='Lahore') Lahore
+                            option(value='Faislabad') Faislabad
+                tr
+                    td(colspan='2',align='right')
+                        input(type='submit' value='Send')
+
