@@ -1,0 +1,16 @@
+/* 
+    body{
+        background-color:tomato;
+        color:whitesmoke;
+        
+       }
+   a{
+       color:whitesmoke;
+         text-decoration: none;
+    }
+    li{
+        list-style-type: none;
+    }
+    .box li{
+        display:inline-block;
+    } */
