@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/ed93bc933e.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+
+
+
+
+      <!-- Adding Data into DataBase by Form Data -->
+
+    <!-- <div class="container">
+      <div class="row">
+        <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <div class="panel-title text-primary font-weight-bold">Employee Details Form</div>
+            </div>
+            <div class="panel-body">
+              <form action="/" id="EmployeeForm" class="form-horizontal" method="post" role="form"
+                enctype="multipart/form-data">
+    
+                <div id="signupalert" style="display:none" class="alert alert-danger">
+                  <p>Error:</p>
+                  <span></span>
+                </div>
+    
+                <div class="form-group">
+                  <label for="firstname" class="col-md-3 control-label">Name</label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" name="uname" placeholder="Enter Your Name">
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label for="email" class="col-md-3 control-label">Email</label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" name="email" placeholder="Email Address">
+                  </div>
+                </div>
+    
+    
+                <div class="form-group">
+                  <label for="lastname" class="col-md-3 control-label">Employee Type</label>
+                  <div class="col-md-9">
+                    <select class="form-control" name="etype">
+                      <option value="Hourly">Hourly</option>
+                      <option value="Fixed">Fixed</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="password" class="col-md-3 control-label">Hourly Rate</label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" name="hrate" placeholder="Enter Hourly Rate">
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label for="icode" class="col-md-3 control-label"> Total Hour</label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" name="thr" placeholder="Enter Total Hours">
+                  </div>
+                </div>
+    
+                < class="form-group">
+                  <!-- Button -->
+                  <!-- <div class="col-md-offset-3 col-md-9">
+                    <input type="submit" name="submit" value="submit" class="btn btn-primary">
+                  </div>
+                </div>
+    
+    
+    
+    
+    
+              </form>
+            </div>
+          </div> --> 
+          <div class="box">
+              <h1><%= title%></h1>
+            <form action='/update' method="post">
+                <input type="hidden" name="id" value="<%= records._id%>">
+              <input type="text" name="uname" placeholder="Enter Your Name Here" value="<%= records.name%>">
+              <input type="text" name="email" placeholder="Enter Your Email Here" value="<%= records.email%>">
+              <select  name="etype">
+                <option value="Hourly" <% if(records.etype=="Hourly"){%>selected <%}%>>Hourly</option>
+                <option value="Fixed" <% if(records.etype=="Fixed"){%>selected <%}%>>Fixed</option>
+              </select>
+              <input type="text" name="hour" placeholder="Enter Hourly Rate" value="<%= records.hourlyrate%>">
+              <input type="text" name="total" placeholder="Enter Total Hour" value="<%= records.totalHour%>">
+              <input type="submit" name="submit" value="submit" class="btn btn-primary">
+            </form>
+          </div>
+  </body>
+</html>
