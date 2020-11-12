@@ -74,6 +74,16 @@ app.patch('/students/:id', async (req, res) => {
 });
 
 
+app.delete('/students/:id',async(req,res)=>{
+    try {
+        const _id = req.params.id;
+        const updateData = await studentModel.findByIdAndRemove({_id});
+        res.send(updateData);
+    } catch (e) {
+        res.status(401).send(e);
+    }
+})
+
 app.listen(port,()=>{
     console.log(`Server Is Running on Port ${port}`)
 })
