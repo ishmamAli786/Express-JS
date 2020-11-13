@@ -4,6 +4,17 @@ const Student = require("../src/models/students");
 const app=express();
 const port=process.env.PORT || 3000;
 const studentModel=require('../src/models/students');
+const studentRouter=require('./routers/student')
+
+
+
+
+///// 3. We Need to Register Our Router
+app.use('/route',studentRouter);
+
+
+
+
 
 
 app.use(express.json());
