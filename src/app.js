@@ -4,6 +4,17 @@ const Student = require("../src/models/students");
 const app=express();
 const port=process.env.PORT || 3000;
 const studentModel=require('../src/models/students');
+const studentRouter=require('./routers/student')
+
+
+
+
+///// 3. We Need to Register Our Router
+app.use('/route',studentRouter);
+
+
+
+
 
 
 app.use(express.json());
@@ -30,6 +41,59 @@ app.post('/students',(req,res)=>{
         }
     })
 });
+
+/////// Read The Data of Registered Student
+app.get('/students',async (req,res)=>{
+    try{
+        const studentsData=await studentModel.find({});
+        res.send(studentsData);
+    }catch(e){
+        res.send(e);
+    }
+});
+
+app.get('/students/:id', async (req, res) => {
+    try {
+        const _id =req.params.id;
+        const studentData=await studentModel.findById({_id:_id});
+        res.send(studentData);
+    } catch (e) {
+        res.send(e);
+    }
+});
+
+app.get('/studentss/:name', async (req, res) => {
+    try {
+        const name = req.params.name;
+        const studenData = await studentModel.findOne({ name: name });
+        res.send(studenData);
+    } catch (e) {
+        res.send(e);
+    }
+});
+
+
+///Update Students by id
+app.patch('/students/:id', async (req, res) => {
+    try {
+        const _id = req.params.id;
+        const updateData = await studentModel.findByIdAndUpdate( _id,req.body,{new:true} );
+        res.send(updateData);
+    } catch (e) {
+        res.status(401).send(e);
+    }
+});
+
+
+app.delete('/students/:id',async(req,res)=>{
+    try {
+        const _id = req.params.id;
+        const updateData = await studentModel.findByIdAndRemove({_id});
+        res.send(updateData);
+    } catch (e) {
+        res.status(401).send(e);
+    }
+})
 
 app.listen(port,()=>{
     console.log(`Server Is Running on Port ${port}`)
