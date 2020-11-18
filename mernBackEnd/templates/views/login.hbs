@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .login {
+            margin: 80px;
+            padding: 30px;
+        }
+    
+        .login input[type='submit'] {
+            margin-top: 10px;
+            padding: 8px;
+            color: white;
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    {{>navbar}}
+    <form action="/login" method="post" class="login">
+        <input type="text" name="email" placeholder="Enter Your email" required><br>
+        <input type="password" name="password" placeholder="Enter Password" required><br>
+        <input type="submit" name="submit" value="Login">
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .signup{
+            margin:80px;
+            padding:30px;
+        }
+        .signup input[type='submit']{
+            margin-top:10px;
+            padding:8px;
+            color:white;
+            background-color:black;
+        }
+    </style>
+</head>
+
+<body>
+    {{>navbar}}
+    <form action="/register" method="post" class="signup">
+    <input type="text" name="fname" placeholder="Enter Your FirstName"><br>
+    <input type="text" name="lname" placeholder="Enter Your LastName"><br>
+    <input type="text" name="email" placeholder="Enter Your email"><br>
+    <input type="number" name="phone" placeholder="Enter Phone"><br>
+    <input type="password" name="password" placeholder="Enter Password"><br>
+    <input type="password" name="confpassword" placeholder="Confrim Password"><br>
+    <input type="number" name="age" placeholder="Enter Age"><br>
+    <input type="radio" name="gender" value="male">Male
+    <input type="radio" name="gender" value="Female">Female<br>
+    <input type="submit" name="submit" value="Register">
+    </form>
+</body>
+
+</html>
