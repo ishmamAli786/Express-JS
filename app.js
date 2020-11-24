@@ -5,6 +5,7 @@ const path=require('path');
 const hbs=require('hbs');
 const Register=require('./models/register');
 const bodyParser=require('body-parser');
+const bcrypt=require('bcryptjs');
 
 
 const static_path=path.join(__dirname,'../public')
@@ -35,8 +36,11 @@ app.post('/login',async(req, res) => {
         const email = req.body.email;
         const password = req.body.password;
         const userEmail=await Register.findOne({ email: email});
-        if (userEmail.password === password){
+        const isMatch = bcrypt.compareSync(password, userEmail.password)
+        if (isMatch){
             res.status(201).render("index");
+        }else{
+            res.status(400).send("Invalid login Details")
         }
     }
     catch(error){
@@ -61,6 +65,8 @@ app.post('/register',async (req, res) => {
         const gender = req.body.gender;
         if (password === confpassword){
             const registerEmployee = new Register({ Firstname: fname, lastname: lname, email: email, gender: gender, phone: phone, age: age, password: password, confpassword: confpassword});
+
+            
             const registered =await registerEmployee.save();
             res.status(201).render('index');
         }else{
