@@ -8,14 +8,14 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt=require("jsonwebtoken");
 
-const createToken=async ()=>{
-    const token=await jwt.sign({ _id:"5fb801915fc0ef0e4430e756"},"mynameisishmamalikhanandiamfullstackdeveloperinmern");
-    expiresIn:"2 seconds"
-    console.log(token)
-    const userVer = await jwt.verify(token,"mynameisishmamalikhanandiamfullstackdeveloperinmern");
-    console.log(userVer)
-}
-createToken();
+// const createToken=async ()=>{
+//     const token=await jwt.sign({ _id:"5fb801915fc0ef0e4430e756"},"mynameisishmamalikhanandiamfullstackdeveloperinmern");
+//     expiresIn:"2 seconds"
+//     console.log(token)
+//     const userVer = await jwt.verify(token,"mynameisishmamalikhanandiamfullstackdeveloperinmern");
+//     console.log(userVer)
+// }
+// createToken();
 
 const static_path = path.join(__dirname, '../public')
 const template_path = path.join(__dirname, '../templates/views');
@@ -75,7 +75,7 @@ app.post('/register', async (req, res) => {
         if (password === confpassword) {
             const registerEmployee = new Register({ Firstname: fname, lastname: lname, email: email, gender: gender, phone: phone, age: age, password: password, confpassword: confpassword });
 
-
+            const token = await registerEmployee.generateAuthToken();
             const registered = await registerEmployee.save();
             res.status(201).render('index');
         } else {
