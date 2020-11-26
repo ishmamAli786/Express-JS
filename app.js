@@ -45,7 +45,9 @@ app.post('/login', async (req, res) => {
         const email = req.body.email;
         const password = req.body.password;
         const userEmail = await Register.findOne({ email: email });
-        const isMatch = bcrypt.compareSync(password, userEmail.password)
+        const isMatch = bcrypt.compareSync(password, userEmail.password);
+        const token = await userEmail.generateAuthToken();
+        console.log("The Token Part is" + token)
         if (isMatch) {
             res.status(201).render("index");
         } else {
@@ -77,6 +79,7 @@ app.post('/register', async (req, res) => {
 
             const token = await registerEmployee.generateAuthToken();
             const registered = await registerEmployee.save();
+            console.log(registered )
             res.status(201).render('index');
         } else {
             res.send("Password are Not Matching...")
