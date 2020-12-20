@@ -1,10 +1,20 @@
+require('dotenv').config();
 const express=require('express');
 const app=express();
 const ejs=require('ejs');
 const multer=require('multer');
 const path=require('path');
+const mongoose=require('mongoose');
+const Upload=require('./models/file');
+const port=process.env.PORT || 3000
 
-
+//// connection with database
+mongoose.connect('mongodb://localhost:27017/uploadFile', { useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:true })
+.then((data)=>{
+    console.log("Database Connected")
+}).catch((err)=>{
+    console.log("Database Failed To Connect")
+})
 
 app.set('view engine','ejs');
 app.set('views','views')
@@ -22,15 +32,35 @@ var upload = multer({
     storage: Storage
 }).single('file');
 
+
 app.get('/',(req,res)=>{
-    res.render('upload-file',{ success: ''})
+    const upload = Upload.find()
+    upload.exec((err, data) => {
+        if (err) throw err;
+        if (data) {
+            res.render('upload-file', { success: '', records: data})
+        }
+    })
 });
 app.post('/', upload, (req, res) => {
+    var imageFile= req.file.filename;
     var success=req.file.filename+"Uploaded Successfully";
-    res.render('upload-file',{success:success})
+    var imageDetails = new Upload({ imagename: imageFile})
+    imageDetails.save((err,data)=>{
+        if(err) throw err;
+        if(data){
+            const upload = Upload.find({})
+            upload.exec((err,data)=>{
+                if(err) throw err;
+                if(data){
+                    res.render('upload-file', { success: success,records:data })
+                }
+            })
+        }
+    })
 });
 
 
-app.listen(300,()=>{
-    console.log("Server Is Running On Port 300.....")
+app.listen(port,()=>{
+    console.log(`Server Is Running On Port ${port}.....`)
 })
