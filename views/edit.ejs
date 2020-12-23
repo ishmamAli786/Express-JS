@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+<body>
+    <h1><%=title %></h1>
+            <form action="/update" method="post">
+            <input type="hidden" name="id" value="<%=result._id%>">
+            <input type="text" name="name" placeholder="<%= result.name%>" required>
+            <input type="text" name="email" placeholder="<%= result.email%>" required>
+            <select class="form-control" name="emptype">
+                <option value="Hourly" <% if(result.etype=="Hourly") {%> selected <% } %> >Hourly</option>
+                <option value="Fixed" <% if(result.etype=="Fixed") {%> selected <% } %>  >Fixed</option>
+            </select>
+            <input type="number" name="hourlyRate" placeholder="<%= result.hourlyrate%>" required>
+            <input type="number" name="tthlr" placeholder="<%= result.totalHour%>" required>
+            <input type="submit" name="submit" value="submit">
+            </form>
+</body>
+</html>
