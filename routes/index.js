@@ -1,9 +1,11 @@
+require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 const EmpModel = require('../models/employee');
 const uploadModel = require('../models/upload');
 const multer=require('multer');
 const path=require('path');
+const jwt=require('jsonwebtoken');
 
 router.use(express.static(__dirname+"./public"));
 var Storage=multer.diskStorage({
@@ -17,8 +19,24 @@ var upload=multer({
   storage: Storage
 }).single('file');
 
+
+if (typeof localStorage === "undefined" || localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+}
+
+function checkLogin(req,res,next){
+  var myToken=localStorage.getItem('myToken');
+  try{
+    jwt.verify(myToken,process.env.SECRET)
+  }catch(err){
+    res.send("You Need  Login First To Access This Page");
+  }
+  next();
+}
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', checkLogin,function(req, res, next) {
   const employee = EmpModel.find({});
   employee.exec((err,data)=>{
     if(err) throw err
@@ -26,6 +44,17 @@ router.get('/', function(req, res, next) {
       res.render('index', { title: 'Employee Records', data: data, success:'' });
     }
   })
+});
+
+router.get('/login', function (req, res, next) {
+  var token = jwt.sign({foo:'bar'}, process.env.SECRET)
+  localStorage.setItem('myToken',token)
+  res.send("Login Successfully");
+});
+
+router.get('/logout', function (req, res, next) {
+  localStorage.removeItem('myToken')
+  res.send("Logout Successfully");
 });
 
 
@@ -138,7 +167,13 @@ router.post('/update',(req,res,next)=>{
 
 
 router.get('/upload', (req, res, next) => {
-  res.render('upload-file', { title: "Upload File", success: '', result: result })
+  var imageData = uploadModel.find({});
+  imageData.exec((err, result) => {
+    if (err) throw err;
+    if (result) {
+      res.render('upload-file', { title: " Upload File", success: '', result: result })
+    }
+  })
 });
 
 
