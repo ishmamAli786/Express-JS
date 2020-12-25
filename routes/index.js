@@ -146,9 +146,16 @@ router.get('/edit/:id',(req,res,next)=>{
 })
 
 router.post('/update', upload,(req,res,next)=>{
-  const update = EmpModel.findByIdAndUpdate(req.body.id,{
-    name: req.body.name, email: req.body.email, etype: req.body.emptype, hourlyrate: req.body.hourlyRate, totalHour: req.body.tthlr, total: parseInt(req.body.hourlyRate) * parseInt(req.body.tthlr),image:req.file.filename
-  })
+  if(req.file){
+    var dataRecord={
+      name: req.body.name, email: req.body.email, etype: req.body.emptype, hourlyrate: req.body.hourlyRate, totalHour: req.body.tthlr, total: parseInt(req.body.hourlyRate) * parseInt(req.body.tthlr), image: req.file.filename
+    }
+  }else{
+    var dataRecord = {
+      name: req.body.name, email: req.body.email, etype: req.body.emptype, hourlyrate: req.body.hourlyRate, totalHour: req.body.tthlr, total: parseInt(req.body.hourlyRate) * parseInt(req.body.tthlr)
+    }
+  }
+  const update = EmpModel.findByIdAndUpdate(req.body.id, dataRecord )
 
   update.exec((err, data) => {
     if (err) throw err;
