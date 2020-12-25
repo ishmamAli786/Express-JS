@@ -44,6 +44,7 @@
         <th>hourlyRate</th>
         <th>totalHour</th>
         <th>Total</th>
+        <th>Profile Image</th>
         <th>Action</th>
       </tr>
       </thead>
@@ -56,6 +57,11 @@
         <td><%= row.hourlyrate %></td>
         <td><%= row.totalHour %></td>
         <td><%= row.total %></td>
+        <td>
+          <% if(row.image){%>
+          <img src="./uploads/<%= row.image %>" alt="profile image" height="30" width="30">
+          <% }%>
+        </td>
         <td>
           <a href="/edit/<%= row._id%>"  style="color:blue">
           <i class="fas fa-edit fa-1x"></i></a>
@@ -153,9 +159,10 @@
           </div>
           </form> -->
 
-          <form action="/" method="post">
+          <form action="/" method="post" enctype="multipart/form-data">
             <input type="text" name="name" placeholder="Enter Your Name" required>
             <input type="text" name="email" placeholder="Enter Your Email" required>
+            <input type="file" name="file">
               <select class="form-control" name="emptype">
                 <option value="Hourly">Hourly</option>
                 <option value="Fixed">Fixed</option>

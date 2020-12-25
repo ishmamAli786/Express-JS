@@ -7,10 +7,14 @@
 </head>
 <body>
     <h1><%=title %></h1>
-            <form action="/update" method="post">
+            <form action="/update" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<%=result._id%>">
             <input type="text" name="name" placeholder="<%= result.name%>" required>
             <input type="text" name="email" placeholder="<%= result.email%>" required>
+            <% if(result.image){%>
+                <img src="/uploads/<%= result.image %>" alt="profile image" height="30" width="30">
+                <% }%>
+            <input type="file" name="file">
             <select class="form-control" name="emptype">
                 <option value="Hourly" <% if(result.etype=="Hourly") {%> selected <% } %> >Hourly</option>
                 <option value="Fixed" <% if(result.etype=="Fixed") {%> selected <% } %>  >Fixed</option>

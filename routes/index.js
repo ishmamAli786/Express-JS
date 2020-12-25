@@ -58,10 +58,10 @@ router.get('/logout', function (req, res, next) {
 });
 
 
-router.post('/', function (req, res, next) {
+router.post('/', upload,function (req, res, next) {
   // const { uname, email, etype, hrlyrate, ttlhr } = req.body;
   var employee = new EmpModel({
-    name: req.body.name, email: req.body.email, etype: req.body.emptype, hourlyrate: req.body.hourlyRate, totalHour: req.body.tthlr, total: parseInt(req.body.hourlyRate) * parseInt(req.body.tthlr)
+    name: req.body.name, email: req.body.email, etype: req.body.emptype, hourlyrate: req.body.hourlyRate, totalHour: req.body.tthlr, total: parseInt(req.body.hourlyRate) * parseInt(req.body.tthlr), image:req.file.filename
   });
   employee.save((err,data)=>{
     if(err) throw err;
@@ -145,9 +145,9 @@ router.get('/edit/:id',(req,res,next)=>{
   })
 })
 
-router.post('/update',(req,res,next)=>{
+router.post('/update', upload,(req,res,next)=>{
   const update = EmpModel.findByIdAndUpdate(req.body.id,{
-    name: req.body.name, email: req.body.email, etype: req.body.emptype, hourlyrate: req.body.hourlyRate, totalHour: req.body.tthlr, total: parseInt(req.body.hourlyRate) * parseInt(req.body.tthlr)
+    name: req.body.name, email: req.body.email, etype: req.body.emptype, hourlyrate: req.body.hourlyRate, totalHour: req.body.tthlr, total: parseInt(req.body.hourlyRate) * parseInt(req.body.tthlr),image:req.file.filename
   })
 
   update.exec((err, data) => {

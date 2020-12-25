@@ -5,7 +5,8 @@ const employeeSchema=new mongoose.Schema({
     etype: String,
     hourlyrate: Number,
     totalHour:Number,
-    total:Number
+    total:Number,
+    image:String,
 })
 const employeModel = new mongoose.model('employee', employeeSchema)
 module.exports = employeModel;
